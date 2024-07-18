@@ -1,6 +1,10 @@
 import {api_key} from './key.js';
+import { movieIds } from './randomData.js';
 
-let url = `http://www.omdbapi.com/?i=tt3896198&apikey=${api_key}`;
+const random = Math.floor(Math.random() * movieIds.length);
+
+
+let url = `http://www.omdbapi.com/?i=${movieIds[random]}&apikey=${api_key}`;
 //Fetching Data
 async function getData(){
     try{
@@ -10,10 +14,12 @@ async function getData(){
             return;
         }
         const data = await res.json();
-        console.log(data);
+        displayMovies(data);
     }catch(error){
         console.log(error);
     }
 }
+function displayMovies(movies){
+    console.log(movies.Poster);
+}
 getData();
-
