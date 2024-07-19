@@ -1,8 +1,8 @@
 import {api_key} from './key.js';
 import { movieIds } from './randomData.js';
 
-
 let movieContainers = document.querySelector('.movie-container');
+const search = document.querySelector('.search-btn');
 
 
 async function fetchMovieData(movieId){
@@ -19,7 +19,6 @@ async function fetchMovieData(movieId){
         console.log(error);
         return;
     }
-
 }
 async function getData(){
     try{
@@ -56,5 +55,31 @@ function displayMovies(movies){
         movieContainers.appendChild(rowDiv);
     }
 }
+async function fetchMovieQuery(query){
+    let url = `http://www.omdbapi.com/?i=${movieIds}&apikey=${api_key}&s=${query}`;
+    try{
+        const res = await fetch(url);
+        if(!res.ok){
+            alert('Problem Found');
+            return;
+        }
+        return await res.json();
+
+    }catch(error){
+        console.log(error);
+        return;
+    }
+}
+
+
+
+search.addEventListener('click', async () => {
+    const userInput = document.querySelector('.search-box').value;
+    const userSearch = await fetchMovieQuery(userInput);
+    console.log(userSearch);
+})
+
+
+
 getData();
 
