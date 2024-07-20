@@ -69,7 +69,10 @@ async function fetchMovieQuery(query){
         return;
     }
 }
-search.addEventListener('click', async () => {
+search.addEventListener('click', searchMovie)
+
+
+async function searchMovie(){
     const userInput = document.querySelector('.search-box').value;
     const userSearch = await fetchMovieQuery(userInput);
 
@@ -78,7 +81,7 @@ search.addEventListener('click', async () => {
     }else{
         movieContainers.innerHTML = 'No Movies Found';
     }
-})
+}
 function displaySearchMovies(movies){
     movieContainers.innerHTML = '';
     const rowDiv = document.createElement('div');
@@ -92,6 +95,10 @@ function displaySearchMovies(movies){
     });
     movieContainers.appendChild(rowDiv);
 }
-
+document.querySelector('.search-box').addEventListener('keypress', function(e) {
+    if(e.key === 'Enter'){
+        searchMovie();
+    }
+});
 getData();
 
