@@ -14,12 +14,12 @@ async function fetchMovieData(movieId){
             return;
         }
         return await res.json();
-
     }catch(error){
         console.log(error);
         return;
     }
 }
+
 async function getData(){
     try{
         const fetchedMovies = [];
@@ -35,6 +35,7 @@ async function getData(){
         console.log(error);
     }
 }
+
 function displayMovies(movies){
     let movieIndex = 0;
     movieContainers.innerHTML = '';
@@ -48,7 +49,12 @@ function displayMovies(movies){
             const img = document.createElement('img');
             img.src = movie.Poster;
             img.classList.add('posters');
-            rowDiv.appendChild(img);
+
+            const link = document.createElement('a');
+            link.href = `https://www.imdb.com/title/${movie.imdbID}/`;
+            link.target = '_blank';
+            link.appendChild(img);
+            rowDiv.appendChild(link);
         }
         movieContainers.appendChild(rowDiv);
     }
@@ -69,6 +75,7 @@ async function fetchMovieQuery(query){
         return;
     }
 }
+
 search.addEventListener('click', searchMovie)
 
 async function searchMovie(){
@@ -81,6 +88,7 @@ async function searchMovie(){
         alert(`${userInput} is not found!`);
     }
 }
+
 function displaySearchMovies(movies){
     movieContainers.innerHTML = '';
     const rowDiv = document.createElement('div');
@@ -89,8 +97,13 @@ function displaySearchMovies(movies){
     movies.forEach(movie => {
         const img = document.createElement('img');
         img.src = movie.Poster;
-        img.classList.add('posters');
-        rowDiv.appendChild(img);
+        img.classList.add('search-posters');
+        const link = document.createElement('a');
+        link.href = `https://www.imdb.com/title/${movie.imdbID}/`;
+        link.target = '_blank';
+
+        link.appendChild(img);
+        rowDiv.appendChild(link);
     });
     movieContainers.appendChild(rowDiv);
 }
