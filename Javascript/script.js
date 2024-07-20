@@ -3,7 +3,7 @@ import { movieIds } from './randomData.js';
 
 let movieContainers = document.querySelector('.movie-container');
 const search = document.querySelector('.search-btn');
-
+const header = document.querySelector('.header');
 
 async function fetchMovieData(movieId){
     let url = `http://www.omdbapi.com/?i=${movieId}&apikey=${api_key}`;
@@ -71,7 +71,6 @@ async function fetchMovieQuery(query){
 }
 search.addEventListener('click', searchMovie)
 
-
 async function searchMovie(){
     const userInput = document.querySelector('.search-box').value;
     const userSearch = await fetchMovieQuery(userInput);
@@ -79,7 +78,7 @@ async function searchMovie(){
     if(userSearch && userSearch.Search){
         displaySearchMovies(userSearch.Search);
     }else{
-        movieContainers.innerHTML = 'No Movies Found';
+        alert(`${userInput} is not found!`);
     }
 }
 function displaySearchMovies(movies){
@@ -100,5 +99,8 @@ document.querySelector('.search-box').addEventListener('keypress', function(e) {
         searchMovie();
     }
 });
+
+header.addEventListener('click', getData);
+
 getData();
 

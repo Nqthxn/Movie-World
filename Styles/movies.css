@@ -3,6 +3,9 @@
     margin:0;
     box-sizing: border-box;
 }
+body{
+    background-color: black;
+}
 
 .movie-container{
     height:100%;
@@ -14,11 +17,13 @@
     height:250px;
 }
 .row1, .row2{
+    margin-left: 20px;
+    margin-right:20px;
     border:1px solid black;
-    width:100%;
+    width:97%;
     height:292px;
     display:flex;
-    justify-content: space-between;
+    column-gap: 20px;
 }
 .posters{
     width:229px;

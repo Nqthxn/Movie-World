@@ -6,5 +6,18 @@
     justify-content: center;
 }
 .search-box{
-    width:750px;
+    width:600px;
+    padding:10px;
+    border-radius: 5px;
+    border:none;
+}
+.search-btn{
+    margin-left: -65px;
+    padding:12px;
+    padding-bottom: 11px;
+    color:white;
+    background-color: rgb(66, 108, 215);
+    border:none;
+    border-radius: 5px;
+
 }

@@ -5,4 +5,11 @@
     align-items: center;
     justify-content: center;
     font-size: 30px;
+    color:white;
+}
+.world{
+    color:rgb(66, 108, 215);
+}
+.movieTitle, .world{
+    cursor:pointer;
 }
