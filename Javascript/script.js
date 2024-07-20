@@ -23,14 +23,12 @@ async function fetchMovieData(movieId){
 async function getData(){
     try{
         const fetchedMovies = [];
-        while(fetchedMovies.length < 12){
-            const random = Math.floor(Math.random() * movieIds.length);
-            const movieId = movieIds[random];
+        let i = 0;
+        while(i < 12){
+            const movieId = movieIds[i];
             const movieData = await fetchMovieData(movieId);
-
-            if(movieData && !fetchedMovies.some(movie => movie.imdbID === movieData.imdbID)){
-                fetchedMovies.push(movieData);
-            }
+            fetchedMovies.push(movieData);
+            i++;
         }
         displayMovies(fetchedMovies);
     }catch(error){
@@ -55,6 +53,7 @@ function displayMovies(movies){
         movieContainers.appendChild(rowDiv);
     }
 }
+
 async function fetchMovieQuery(query){
     let url = `http://www.omdbapi.com/?i=${movieIds}&apikey=${api_key}&s=${query}`;
     try{
@@ -70,16 +69,29 @@ async function fetchMovieQuery(query){
         return;
     }
 }
-
-
-
 search.addEventListener('click', async () => {
     const userInput = document.querySelector('.search-box').value;
     const userSearch = await fetchMovieQuery(userInput);
-    console.log(userSearch);
+
+    if(userSearch && userSearch.Search){
+        displaySearchMovies(userSearch.Search);
+    }else{
+        movieContainers.innerHTML = 'No Movies Found';
+    }
 })
+function displaySearchMovies(movies){
+    movieContainers.innerHTML = '';
+    const rowDiv = document.createElement('div');
+    rowDiv.classList.add('search-results');
 
-
+    movies.forEach(movie => {
+        const img = document.createElement('img');
+        img.src = movie.Poster;
+        img.classList.add('posters');
+        rowDiv.appendChild(img);
+    });
+    movieContainers.appendChild(rowDiv);
+}
 
 getData();
 
